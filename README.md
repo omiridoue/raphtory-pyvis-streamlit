@@ -6,7 +6,8 @@ Teenage Friends and Lifestyle Study - Glasgow
 
 ## Temporal Network Edges
 
-https://github.com/omiridoue/pyvis-streamlit-colab/assets/126977992/dc113df6-1417-41e0-83c5-b77ef3209614
+https://github.com/omiridoue/pyvis-streamlit-colab/assets/126977992/ea5fdc6e-4b9c-417d-9ac9-43840d34091d
+
 
 
 
