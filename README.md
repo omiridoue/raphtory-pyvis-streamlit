@@ -1,6 +1,6 @@
 # Streamlit App for Pyvis Temporal Graph using Raphtory
 
-#Teenage Friends and Lifestyle Study - Glasgow
+# Teenage Friends and Lifestyle Study - Glasgow
 
 [(West and Sweeting 1995, Michell and Amos 1997, Pearson and Michell 2000, Pearson and West 2003)](https://www.stats.ox.ac.uk/~snijders/siena/Glasgow_data.htm)
 
@@ -11,7 +11,7 @@ https://github.com/omiridoue/pyvis-streamlit-colab/assets/126977992/a8da7889-15a
 
 ## References 
 
-Bush, H., P. West, and L. Michell (1997). The role of friendship groups in the uptake and maintenance of smoking amongst pre-adolescent and adolescent children: Distribution of Frequencies. Working Paper No. 62. MRC Medical Sociology Unit Glasgow.
+Bush, H., P. West, and L. Michell (1997). The role of friendship groups in the uptake and maintenance of smoking amongst pre-adolescent and adolescent children: Distribution of Frequencies. Working Paper No. 62. MRC Medical Sociology Unit Glasgow. <br>
 Michell, L. (1997a). Pressure groups: young people's accounts of peer pressure to smoke. Social Sciences in Health, 3, 3-17.
 Michell, L. (1997b). Loud, sad or bad: young people's perceptions of peer groups and smoking. Health Education Research, 12(1), 1-14.
 Michell, L., and A. Amos (1997). Girls, pecking order and smoking. Social Science and Medicine, 44, 1861-1869.
