@@ -12,7 +12,9 @@ https://github.com/omiridoue/pyvis-streamlit-colab/assets/126977992/a8da7889-15a
 ## References 
 
 <p style="padding-left: 2em; text-indent: -2em;"> 
-  Bush, H., P. West, and L. Michell (1997). The role of friendship groups in the uptake and maintenance of smoking amongst pre-adolescent and adolescent children: Distribution of Frequencies. Working Paper No. 62. MRC Medical Sociology Unit Glasgow. </p> <br>
+  Bush, H., P. West, and L. Michell (1997). The role of friendship groups in the uptake and maintenance of smoking amongst pre-adolescent and adolescent children: Distribution of Frequencies. Working Paper No. 62. MRC Medical Sociology Unit Glasgow. 
+</p>
+
 Michell, L. (1997a). Pressure groups: young people's accounts of peer pressure to smoke. Social Sciences in Health, 3, 3-17.<br>
 Michell, L. (1997b). Loud, sad or bad: young people's perceptions of peer groups and smoking. Health Education Research, 12(1), 1-14.<br>
 Michell, L., and A. Amos (1997). Girls, pecking order and smoking. Social Science and Medicine, 44, 1861-1869.<br>
