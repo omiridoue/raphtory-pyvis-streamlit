@@ -303,7 +303,9 @@ df_parent_col.parent_smoking = df_parent_col.parent_smoking.astype('string')
 df_parent_col.reset_index(inplace=True, drop=True)
 
 for index, d in enumerate(pyvis_graph.nodes):
-    d.update((k, np.int(df_parent_col.loc[index,'count'])) for k, v in d.items() if k == 'size')
+    #d.update((k, np.int(df_parent_col.loc[index,'count'])) for k, v in d.items() if k == 'size')
+    d.update((k, 20)) for k, v in d.items() if k == 'size')
+
     d.update((k, f"{df_parent_col.loc[index,'parent_smoking']}") for k, v in d.items() if k == 'color')
 
 
