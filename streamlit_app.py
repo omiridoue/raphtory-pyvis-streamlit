@@ -22,9 +22,9 @@ import pandas as pd
 import matplotlib.cm as cm
 import matplotlib.colors as mcolors
 
-glasgow_friendship = pyreadr.read_r("/Glasgow_data/Glasgow-friendship.RData")
-glasgow_substances = pyreadr.read_r("/Glasgow_data/Glasgow-substances.RData")
-glasgow_various = pyreadr.read_r("/Glasgow_data/Glasgow-various.RData")
+glasgow_friendship = pyreadr.read_r("./data/Glasgow-friendship.RData")
+glasgow_substances = pyreadr.read_r("./data/Glasgow-substances.RData")
+glasgow_various = pyreadr.read_r("./data/Glasgow-various.RData")
 
 adj_t1 = pd.DataFrame(glasgow_friendship['friendship.1'])
 adj_t2 = pd.DataFrame(glasgow_friendship['friendship.2'])
