@@ -261,7 +261,6 @@ for index, d in enumerate(pyvis_graph.edges):
        d.update((k, False) for k, v in d.items() if k == 'hidden')
 
 for index, d in enumerate(pyvis_graph.edges):
-    #d['value'] = d.get('title', '')  # Adds a new key 'title' with the value of 'label'
     d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
     if d['title'] in ["1"]:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
@@ -289,7 +288,6 @@ slider = st.slider(
 st.write("Wave:", slider)
 
 for index, d in enumerate(pyvis_graph.edges):
-    d['value'] = ' '
     d['hidden'] = True  # Toggles hidden edge on off through the filter
     if d['title'] in [f'{slider}']:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
@@ -307,9 +305,8 @@ df_parent_col.reset_index(inplace=True, drop=True)
 for index, d in enumerate(pyvis_graph.nodes):
     #d.update((k, np.int(df_parent_col.loc[index,'count'])) for k, v in d.items() if k == 'size')
     d.update((k, 5) for k, v in d.items() if k == 'size')
-
+    
     d.update((k, f"{df_parent_col.loc[index,'parent_smoking']}") for k, v in d.items() if k == 'color')
-
 
 pyvis_graph.repulsion(
                     node_distance=420,
