@@ -132,6 +132,7 @@ pyvis_graph = export.to_pyvis(graph=graph,
                               directed=True,
                               neighborhood_highlight=True,
                               select_menu=False,
+                              cdn_resources = 'in-line',
                               filter_menu=True # change to true if you want to display pyvis filtering options
                               )
 
