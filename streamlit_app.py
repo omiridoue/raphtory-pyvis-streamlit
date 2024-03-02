@@ -291,7 +291,7 @@ for index, d in enumerate(pyvis_graph.edges):
     d['hidden'] = True  # Toggles hidden edge on off through the filter
     if d['title'] in [f'{slider}']:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
-    d.update((k, False) for k, v in d.items() if k == 'value')
+    d.update((k, np.nan) for k, v in d.items() if k == 'value')
 
     #d.update((k, 1) for k, v in d.items() if k == 'value')
     d.update((k, False) for k, v in d.items() if k == 'arrowStrikethrough')
