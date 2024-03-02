@@ -269,7 +269,7 @@ for index, d in enumerate(pyvis_graph.edges):
 for index, d in enumerate(pyvis_graph.nodes):
     d.update((k, f"diamond") for k, v in d.items() if k == 'shape')
     d['title'] = d.get('label', '')  # Adds a new key 'title' with the value of 'label'
-    #d['size'] = 150
+    d['size'] = 20
 
     # Update nested 'color' under 'font' to 'black'
     if 'font' in d:
@@ -303,6 +303,7 @@ df_parent_col.reset_index(inplace=True, drop=True)
 for index, d in enumerate(pyvis_graph.nodes):
     d.update((k, np.int(df_parent_col.loc[index,'count'])) for k, v in d.items() if k == 'size')
     d.update((k, f"{df_parent_col.loc[index,'parent_smoking']}") for k, v in d.items() if k == 'color')
+
 
 pyvis_graph.repulsion(
                     node_distance=420,
