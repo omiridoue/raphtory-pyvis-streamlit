@@ -167,11 +167,13 @@ for _, row in mask_edge.iterrows():
 period_len_vec = expanded_df.groupby(['src', 'dst']).size().reset_index(name='count')
 
 expanded_df = pd.merge(expanded_df, period_len_vec, on=['src', 'dst'], how='left')
+
 expanded_df['periods']=expanded_df.apply(lambda x: x['update_history'][0] if x['count']==1 else x['periods'], axis=1)
 
 expanded_df['periods']=expanded_df.apply(lambda x: x['update_history'][1] if (x['count']==2 and x['periods']==2) else x['periods'], axis=1)
 
 expanded_df['periods']=expanded_df.apply(lambda x: x['update_history'][0] if (x['count']==2 and x['periods']==1) else x['periods'], axis=1)
+
 expanded_df['first_inst']=expanded_df.apply(lambda x: x['update_history'][0], axis=1)
 
 count_per_combination = expanded_df.groupby(['src', 'periods']).size().reset_index(name='count')
@@ -248,13 +250,13 @@ for index, d in enumerate(replicated_entry):
                          to = replicated_entry[index]['to'],
                          title = f"{subset_new['time'][index]}",
                          arrowStrikethrough = replicated_entry[index]['arrowStrikethrough'],
-                         value = replicated_entry[index]['value'],
+                         width = replicated_entry[index]['value'],
                          color = f"{subset_new['color'][index]}",
                          arrows = replicated_entry[index]['arrows']
                          )
 
 for index, d in enumerate(pyvis_graph.edges):
-    d['value'] = d.get('title', '')  # Adds a new key 'title' with the value of 'label'
+    #d['value'] = d.get('title', '')  # Adds a new key 'title' with the value of 'label'
     d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
     if d['title'] in ["1"]:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
@@ -288,12 +290,12 @@ slider = st.slider(
 st.write("Wave:", slider)
 
 for index, d in enumerate(pyvis_graph.edges):
-    d['value'] = 2  
+    #d['value'] = 2  
     d['hidden'] = True  # Toggles hidden edge on off through the filter
     if d['title'] in [f'{slider}']:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
       
-    d.update((k, 1) for k, v in d.items() if k == 'value')
+    #d.update((k, 1) for k, v in d.items() if k == 'value')
     d.update((k, False) for k, v in d.items() if k == 'arrowStrikethrough')
 
 
