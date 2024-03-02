@@ -1,7 +1,6 @@
 pandas
 numpy
 pyreadr
-glob
 raphtory
 IPython.display
 ipywidgets
@@ -9,5 +8,5 @@ streamlit
 seaborn 
 pandas
 matplotlib
-inspect
-pprint
+
+
