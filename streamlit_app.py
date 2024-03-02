@@ -3,11 +3,6 @@ import numpy as np
 
 import pyreadr
 
-from pprint import pprint
-
-import os
-import glob
-
 from raphtory import Graph
 from raphtory import algorithms as algo
 #from raphtory import graphqlserver
@@ -27,18 +22,9 @@ import pandas as pd
 import matplotlib.cm as cm
 import matplotlib.colors as mcolors
 
-import inspect
-from pprint import pprint
-
-path = './Glasgow_data/'
-
-for filename in glob.glob(os.path.join(path, '*.RData')): #only process .Rdata files in folder.
-    with open(filename, encoding='utf-8', mode='r') as currentFile:
-      file_index = (os.path.split(filename)[1]).replace('.RData', '')
-      file_index = file_index.replace('-','_').lower()
-      print(file_index) # use adjusted file names to name data objects
-
-      globals()[file_index] = pyreadr.read_r(filename) # also works for Rds
+glasgow_friendship = pyreadr.read_r(./Glasgow_data/Glasgow-friendship.RData)
+glasgow_substances = pyreadr.read_r(./Glasgow_data/Glasgow-substances.Rdata)
+glasgow_various = pyreadr.read_r(./Glasgow_data/Glasgow-various.Rdata)
 
 adj_t1 = pd.DataFrame(glasgow_friendship['friendship.1'])
 adj_t2 = pd.DataFrame(glasgow_friendship['friendship.2'])
