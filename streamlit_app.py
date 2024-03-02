@@ -132,7 +132,6 @@ pyvis_graph = export.to_pyvis(graph=graph,
                               font_color='white',
                               directed=True,
                               neighborhood_highlight=True,
-                              edge_scaling = False,
                               select_menu=False,
                               filter_menu=True # change to true if you want to display pyvis filtering options
                               )
