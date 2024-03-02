@@ -269,7 +269,7 @@ for index, d in enumerate(pyvis_graph.edges):
 for index, d in enumerate(pyvis_graph.nodes):
     d.update((k, f"diamond") for k, v in d.items() if k == 'shape')
     d['title'] = d.get('label', '')  # Adds a new key 'title' with the value of 'label'
-    d['size'] = 20
+    #d['size'] = 20
 
     # Update nested 'color' under 'font' to 'black'
     if 'font' in d:
@@ -290,7 +290,7 @@ st.write("Wave:", slider)
 for index, d in enumerate(pyvis_graph.edges):
     d['value'] = 2  # Adds a new key 'title' with the value of 'label'
     d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
-
+    d['width'] = 0.5
     if d['title'] in [f'{slider}']:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
 
