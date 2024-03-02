@@ -2,11 +2,9 @@ pandas
 numpy
 pyreadr
 raphtory
-IPython.display
+IPython
 ipywidgets
 streamlit 
 seaborn 
 pandas
 matplotlib
-
-
