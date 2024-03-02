@@ -326,6 +326,8 @@ options = {
 # Step 5: Define the options
 pyvis_graph.set_options = options
 
+pyvis_graph.set_edge_smooth("diagonalCross") # set edge smooth
+
 #pyvis_graph.set_template('/content/')
 #pyvis_graph.generate_html(name='template.html', local=True, notebook=False)
 
