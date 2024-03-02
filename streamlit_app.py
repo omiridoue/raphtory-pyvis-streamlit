@@ -129,7 +129,6 @@ pyvis_graph = export.to_pyvis(graph=graph,
                               width='100%',
                               bgcolor='#e5eaf9',
                               font_color='white',
-                              weight='',
                               directed=True,
                               neighborhood_highlight=True,
                               select_menu=False,
@@ -137,7 +136,7 @@ pyvis_graph = export.to_pyvis(graph=graph,
                               filter_menu=True # change to true if you want to display pyvis filtering options
                               )
 
-pyvis_graph.force_atlas_2based()
+pyvis_graph.barnes_hut()
 
 mask_edge = export.to_edge_df(graph)
 
