@@ -1,0 +1,14 @@
+pandas
+numpy
+pyreadr
+os
+glob
+raphtory
+IPython.display
+ipywidgets
+streamlit 
+seaborn 
+pandas
+matplotlib
+inspect
+pprint
