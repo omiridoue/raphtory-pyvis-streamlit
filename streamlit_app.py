@@ -136,7 +136,7 @@ pyvis_graph = export.to_pyvis(graph=graph,
                               filter_menu=True # change to true if you want to display pyvis filtering options
                               )
 
-pyvis_graph.barnes_hut()
+pyvis_graph.barnes_hut(gravity=-1000000, central_gravity=0.3)
 
 mask_edge = export.to_edge_df(graph)
 
