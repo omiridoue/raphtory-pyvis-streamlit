@@ -31,7 +31,7 @@ import matplotlib.colors as mcolors
 import inspect
 from pprint import pprint
 
-path = '/Glasgow_data'
+path = './Glasgow_data'
 
 for filename in glob.glob(os.path.join(path, '*.RData')): #only process .Rdata files in folder.
     with open(filename, encoding='utf-8', mode='r') as currentFile:
