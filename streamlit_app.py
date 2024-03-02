@@ -288,13 +288,14 @@ slider = st.slider(
 st.write("Wave:", slider)
 
 for index, d in enumerate(pyvis_graph.edges):
-    d['value'] = 2  # Adds a new key 'title' with the value of 'label'
-    d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
-    d['width'] = 0.5
+    d['value'] = 2  
+    d['hidden'] = True  # Toggles hidden edge on off through the filter
     if d['title'] in [f'{slider}']:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
       
-    d.update((k, 0.5) for k, v in d.items() if k == 'value')
+    d.update((k, 1) for k, v in d.items() if k == 'value')
+    d.update((k, False) for k, v in d.items() if k == 'arrowStrikethrough')
+
 
 df_parent_col = pd.DataFrame()
 df_parent_col = df_1.loc[df_1['time'] == slider][:]
