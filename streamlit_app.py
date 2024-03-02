@@ -294,7 +294,7 @@ for index, d in enumerate(pyvis_graph.edges):
     if d['title'] in [f'{slider}']:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
       
-    d.update((k, 1) for k, v in d.items() if k == 'value')
+    d.update((k, 0.5) for k, v in d.items() if k == 'value')
 
 df_parent_col = pd.DataFrame()
 df_parent_col = df_1.loc[df_1['time'] == slider][:]
