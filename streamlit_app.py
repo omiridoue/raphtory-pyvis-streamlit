@@ -321,7 +321,12 @@ options = {
         "hover": True,
         "selectConnectedEdges": True
 
-    }
+    },
+  "edges": {
+        "scaling": {
+            "min": 1,
+            "max": 10,
+        }
 }
 
 # Step 5: Define the options
