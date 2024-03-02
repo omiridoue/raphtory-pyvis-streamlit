@@ -1,7 +1,6 @@
 pandas
 numpy
 pyreadr
-os
 glob
 raphtory
 IPython.display
