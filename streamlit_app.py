@@ -256,7 +256,7 @@ for index, d in enumerate(replicated_entry):
                          )
 
 for index, d in enumerate(pyvis_graph.edges):
-    d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
+    d['hidden'] = True  
     d['width'] = 2
   
     #if d['title'] in ["1"]:
@@ -294,7 +294,7 @@ for index, d in enumerate(pyvis_graph.edges):
     d['hidden'] = True  # Toggles hidden edge on off through the filter
   
     d.update((k, np.nan) for k, v in d.items() if k == 'value')
-    d.update((k, 2) for k, v in d.items() if k == 'width')
+    #d.update((k, 2) for k, v in d.items() if k == 'width')
 
     
     if d['title'] in [f'{slider}']:
