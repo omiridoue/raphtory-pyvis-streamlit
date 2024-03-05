@@ -291,7 +291,8 @@ st.write("Wave:", slider)
 
 for index, d in enumerate(pyvis_graph.edges):
     d['hidden'] = True  # Toggles hidden edge on off through the filter
-  
+    d['width'] = d.get('value', '')  # Adds a new key 'title' with the value of 'label'
+
     #d.update((k, np.nan) for k, v in d.items() if k == 'value')
     #d.update((k, 2) for k, v in d.items() if k == 'width')
 
