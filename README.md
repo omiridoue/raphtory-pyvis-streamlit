@@ -1,4 +1,4 @@
-# Streamlit App for Pyvis Temporal Graph using Raphtory Temporal Graph Package
+# Interactive Pyvis Graph using Raphtory Temporal Graph Library hosted on Streamlit Cloud
 
 ### Teenage Friends and Lifestyle Study - Glasgow
 
