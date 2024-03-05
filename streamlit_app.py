@@ -252,7 +252,8 @@ for index, d in enumerate(replicated_entry):
                          arrowStrikethrough = replicated_entry[index]['arrowStrikethrough'],
                          width = replicated_entry[index]['value'],
                          color = f"{subset_new['color'][index]}",
-                         arrows = replicated_entry[index]['arrows']
+                         arrows = replicated_entry[index]['arrows'],
+                         value = np.nan
                          )
 
 for index, d in enumerate(pyvis_graph.edges):
