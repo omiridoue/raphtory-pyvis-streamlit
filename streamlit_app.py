@@ -312,6 +312,8 @@ for index, d in enumerate(pyvis_graph.nodes):
     
     d.update((k, f"{df_parent_col.loc[index,'parent_smoking']}") for k, v in d.items() if k == 'color')
 
+pyvis_graph.edges[width] = pyvis_graph.edges.pop(value)
+
 pyvis_graph.repulsion(
                     node_distance=420,
                     central_gravity=0.33,
