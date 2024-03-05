@@ -1,13 +1,35 @@
-# Streamlit App for Pyvis Temporal Graph using Raphtory
+# Streamlit App for Pyvis Temporal Graph using Raphtory Temporal Graph Package
 
 ### Teenage Friends and Lifestyle Study - Glasgow
 
 [(West and Sweeting 1995, Michell and Amos 1997, Pearson and Michell 2000, Pearson and West 2003)](https://www.stats.ox.ac.uk/~snijders/siena/Glasgow_data.htm)
 
+### Dependencies (requirements.txt)
+
+```
+pandas 
+numpy
+pyreadr
+raphtory
+IPython
+ipywidgets
+streamlit 
+seaborn 
+pandas
+matplotlib
+
+```
+
+This interactive network visual is hosted through Streamlit Cloud and is available to the public https://streamlit.io/cloud. 
+You can fork this branch and tailor the graph to build features depending on your research interests.
 
 ## Temporal Network Edges
 
 https://github.com/omiridoue/pyvis-streamlit-colab/assets/126977992/a8da7889-15a0-48d1-8ae0-ca631497577e
+
+- The node color indicates whether the student had a parent smoking at home, dark purple. 
+- The edges are colored dark blue for students reporting frequent smokers and light blue for occassional and non-smokers.
+- You can filter nodes through the dropdown selecting node, label and then the anonymised student IDs to explore different groups.
 
 ## References 
 
