@@ -250,7 +250,7 @@ for index, d in enumerate(replicated_entry):
                          to = replicated_entry[index]['to'],
                          title = f"{subset_new['time'][index]}",
                          arrowStrikethrough = replicated_entry[index]['arrowStrikethrough'],
-                         width = replicated_entry[index]['value'],
+                         value = replicated_entry[index]['value'],
                          color = f"{subset_new['color'][index]}",
                          arrows = replicated_entry[index]['arrows']
                          )
@@ -308,7 +308,7 @@ df_parent_col.reset_index(inplace=True, drop=True)
 
 for index, d in enumerate(pyvis_graph.nodes):
     #d.update((k, np.int(df_parent_col.loc[index,'count'])) for k, v in d.items() if k == 'size')
-    d.update((k, 5) for k, v in d.items() if k == 'size')
+    d.update((k, 1) for k, v in d.items() if k == 'size')
     
     d.update((k, f"{df_parent_col.loc[index,'parent_smoking']}") for k, v in d.items() if k == 'color')
 
