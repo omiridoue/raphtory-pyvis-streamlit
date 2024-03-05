@@ -262,11 +262,11 @@ for index, d in enumerate(pyvis_graph.edges):
     if d['title'] in ["1"]:
        d.update((k, False) for k, v in d.items() if k == 'hidden')
 
-for index, d in enumerate(pyvis_graph.edges):
-    d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
+#for index, d in enumerate(pyvis_graph.edges):
+    #d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
 
-    if d['title'] in ["1"]:
-       d.update((k, False) for k, v in d.items() if k == 'hidden')
+    #if d['title'] in ["1"]:
+       #d.update((k, False) for k, v in d.items() if k == 'hidden')
 
 
 for index, d in enumerate(pyvis_graph.nodes):
