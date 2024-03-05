@@ -321,7 +321,7 @@ pyvis_graph.repulsion(
                     damping=0.95
                     )
 
-pyvis_graph.show_buttons(filter_=['nodes'])
+pyvis_graph.show_buttons(filter_=['nodes', 'edges', 'physics'])
 #'manipulation', 'interaction', 'edges'
 
 options = {
