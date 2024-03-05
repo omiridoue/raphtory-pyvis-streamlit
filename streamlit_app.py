@@ -257,7 +257,7 @@ for index, d in enumerate(replicated_entry):
 
 for index, d in enumerate(pyvis_graph.edges):
     d['hidden'] = True  
-    d['width'] = 2
+    #d['width'] = 2
   
     #if d['title'] in ["1"]:
        #d.update((k, False) for k, v in d.items() if k == 'hidden')
@@ -291,7 +291,7 @@ st.write("Wave:", slider)
 
 for index, d in enumerate(pyvis_graph.edges):
     d['hidden'] = True  # Toggles hidden edge on off through the filter
-    d['width'] = d.get('value', '')  # Adds a new key 'title' with the value of 'label'
+    d['width'] = d.pop('value', '')  # Adds a new key 'title' with the value of 'label'
 
     #d.update((k, np.nan) for k, v in d.items() if k == 'value')
     #d.update((k, 2) for k, v in d.items() if k == 'width')
