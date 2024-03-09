@@ -25,7 +25,7 @@ You can fork this branch and tailor the graph to build features depending on you
 
 ## Temporal Network Edges
 
-https://github.com/omiridoue/pyvis-streamlit-colab/assets/126977992/a8da7889-15a0-48d1-8ae0-ca631497577e
+https://github.com/omiridoue/raphtory-pyvis-streamlit/assets/126977992/1d6536fb-6aa0-4c11-8ce0-cdc2b6cd4365
 
 - The node color indicates whether the student had a parent smoking at home, dark purple. 
 - The edges are colored dark blue for students reporting frequent smokers and light blue for occassional and non-smokers.
