@@ -17,7 +17,6 @@ streamlit
 seaborn 
 pandas
 matplotlib
-
 ```
 
 This interactive network visual is hosted through Streamlit Cloud and is available to the public https://streamlit.io/cloud. 
