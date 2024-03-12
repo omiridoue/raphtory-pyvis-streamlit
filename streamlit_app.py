@@ -279,7 +279,7 @@ for index, d in enumerate(pyvis_graph.nodes):
 
  #pyvis_graph.nodes
 
-st.title('Glasgow Teenage Friendship Network Interactive Visual')
+st.title('Glasgow Teenage Friendship Network: Raphtory Temporal Graph Visual')
 
 slider = st.slider(
     min_value = 1,
