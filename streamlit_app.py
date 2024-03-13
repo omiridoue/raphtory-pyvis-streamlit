@@ -281,6 +281,25 @@ for index, d in enumerate(pyvis_graph.nodes):
 
 st.title('Glasgow Teenage Friendship Network: Raphtory Temporal Graph')
 
+- The node color indicates whether the student had a parent smoking at home, dark purple. 
+- The edges are colored dark blue for students reporting frequent smokers and light blue for occassional and non-smokers.
+- You can filter nodes through the dropdown selecting node, label and then the anonymised student IDs to explore different groups.
+
+with st.sidebar:
+  st.write("Explore Health Behaviour Elements of Smoking the Visual:")
+  st.markdown("- The edges connecting students in the school year show which way a friendship was initiated. Most times these are mutual but sometimes not reciprocated, students had the option of nominating up to 6 friends.") 
+  st.markdown("- The edges are colored dark blue for students reporting frequent smoking and light blue for occassional or non-smokers.")
+  st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
+  st.markdown("- You can filter nodes through the dropdown selecting node, label and the anonymised student IDs to explore different groups of friends.")
+
+st.markdown('''
+<style>
+[data-testid="stMarkdownContainer"] ul{
+    padding-left:40px;
+}
+</style>
+''', unsafe_allow_html=True)
+
 slider = st.slider(
     min_value = 1,
     max_value = 3,
