@@ -282,13 +282,14 @@ for index, d in enumerate(pyvis_graph.nodes):
 st.title('Glasgow Teenage Friendship Network: Raphtory Temporal Graph')
 
 with st.sidebar:
-  st.write("Explore Smoking Behaviours through Different Elements of the Visual:")
+  st.subheader("Explore Smoking Behaviours through Different Elements of the Visual:")
   st.markdown("- The edges connecting students in the school year show which way a friendship was initiated. Most times friendships are mutual but sometimes may not be reciprocated. In the original questionnaire students had the option of nominating up to 6 friends.") 
   st.markdown("- The edges are colored dark blue for students reporting frequent smoking and light blue for occassional or non-smokers.")
   st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
   st.markdown("- You can filter nodes through the dropdown selecting node as a network item, label as a property and listing the anonymised student IDs under values to explore different groups of friends.")
-  st.write("Relationships Programme, Social Public Health Unit, MRC/CSO at UofGlasgow")
-
+  st.markdown("Relationships Programme, Social Public Health Unit, MRC/CSO at UofGlasgow")
+  st.image("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.gla.ac.uk%2Fschools%2Fhealthwellbeing%2Fresearch%2Fmrccsosocialandpublichealthsciencesunit%2Fourstaff%2F&psig=AOvVaw0mPTZ4VT7QeIMuA1yvBr04&ust=1710443628291000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIDE9Zz58YQDFQAAAAAdAAAAABAX")
+  
   st.markdown('''
   <style>
   [data-testid="stMarkdownContainer"] ul{
