@@ -293,9 +293,8 @@ with st.sidebar:
   <style>
   [data-testid="stMarkdownContainer"] ul{
       padding-left:40px;
-      background-image: linear-gradient(#8993ab,#8993ab);
-      color: white
   }
+  section[data-testid=“stSidebar”] div[class=“css-17eq0hr e1fqkh3o1”] {background-image: linear-gradient(#8993ab,#8993ab);color: white}
   </style>
   ''', unsafe_allow_html=True)
 
