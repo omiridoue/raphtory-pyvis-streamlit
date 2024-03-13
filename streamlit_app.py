@@ -287,7 +287,7 @@ with st.sidebar:
   st.markdown("- The edges are colored dark blue for students reporting frequent smoking and light blue for occassional or non-smokers.")
   st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
   st.markdown("- You can filter nodes through the dropdown selecting node as a network item, label as a property and listing the anonymised student IDs under values to explore different groups of friends.")
-  st.markdown("Relationships Programme, Social Public Health Unit, MRC/CSO at UofGlasgow")
+  st.markdown("Peers and Networks Workstream, Relationships Programme")
   st.image("MRC_CSO_SPHSU_Glasgow_RGB_0.png")
   
   st.markdown('''
