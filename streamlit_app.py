@@ -284,7 +284,7 @@ st.title('Glasgow Teenage Friendship Network: Raphtory Temporal Graph')
 with st.sidebar:
   st.subheader("Explore Smoking Behaviours through Different Elements of the Visual:")
   st.markdown("- The edges connecting students in the school year show which way a friendship was initiated. Most times friendships are mutual but sometimes may not be reciprocated. In the original questionnaire students had the option of nominating up to 6 friends.") 
-  st.markdown("- The edges are colored dark blue for students reporting frequent smoking and light blue for those mentioning occassional or never smoking.")
+  st.markdown("- The edges are colored dark blue for students reporting frequent smoking and light blue for those mentioning occasionally or never smoking.")
   st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
   st.markdown("- You can filter nodes through the dropdown selecting node as a network item, label as a property and listing the anonymised student IDs under values to explore different groups of friends.")
   st.markdown("Peers and Networks Workstream, Relationships Programme")
