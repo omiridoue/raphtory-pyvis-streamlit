@@ -285,9 +285,9 @@ slider = st.slider(
     min_value = 1,
     max_value = 3,
     value=1,
-    label='Filter by Wave:'
+    label='Filter by Questionnaire Wave:'
 )
-st.write("Wave:", slider)
+st.write("Questionnaire Wave:", slider)
 
 for index, d in enumerate(pyvis_graph.edges):
     d['hidden'] = True  # Toggles hidden edge on off through the filter
