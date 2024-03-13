@@ -292,9 +292,13 @@ with st.sidebar:
   st.markdown('''
   <style>
   [data-testid="stMarkdownContainer"] ul{
-      padding-left:40px;
-  }
-  section[data-testid=“stSidebar”] div[class=“css-17eq0hr e1fqkh3o1”] {background-image: linear-gradient(#8993ab,#8993ab);color: white}
+      padding-left:30px;
+      }
+
+  .sidebar .sidebar-content {
+  background-image: linear-gradient(#2e7bcf,#2e7bcf);
+  color: white;
+    }
   </style>
   ''', unsafe_allow_html=True)
 
