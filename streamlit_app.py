@@ -288,7 +288,7 @@ with st.sidebar:
   st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
   st.markdown("- You can filter nodes through the dropdown selecting node as a network item, label as a property and listing the anonymised student IDs under values to explore different groups of friends.")
   st.markdown("Relationships Programme, Social Public Health Unit, MRC/CSO at UofGlasgow")
-  st.image("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.gla.ac.uk%2Fschools%2Fhealthwellbeing%2Fresearch%2Fmrccsosocialandpublichealthsciencesunit%2Fourstaff%2F&psig=AOvVaw0mPTZ4VT7QeIMuA1yvBr04&ust=1710443628291000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIDE9Zz58YQDFQAAAAAdAAAAABAX")
+  st.image("https://drive.google.com/file/d/1X8pQSzZZJ0e85LMAFGB4p1NwS5wR5Bj7/view?usp=sharing")
   
   st.markdown('''
   <style>
