@@ -19,8 +19,10 @@ pandas
 matplotlib
 ```
 
-This interactive network visual is hosted through Streamlit Cloud and is available to the public https://streamlit.io/cloud. 
-You can fork this branch and tailor the graph to build features depending on your research interests.
+This interactive network visual is hosted through Streamlit Cloud and is available here, https://raphtory-pyvis-teenage-glasgow-friendship.streamlit.app/. 
+You can fork this branch and tailor the graph to build features depending on your research interests. Note Streamlit put apps to 'sleep' if there
+is no activity at least once a week. Health warning this probably will be the case (!) let me know via email if you run into this error and cannot refresh this, 
+really you will do me a favour if you use it ;).
 
 ## Temporal Network Edges
 
