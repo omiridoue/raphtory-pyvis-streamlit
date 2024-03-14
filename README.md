@@ -4,21 +4,6 @@
 
 [(West and Sweeting 1995, Michell and Amos 1997, Pearson and Michell 2000, Pearson and West 2003)](https://www.stats.ox.ac.uk/~snijders/siena/Glasgow_data.htm)
 
-### Dependencies (requirements.txt)
-
-```
-pandas 
-numpy
-pyreadr
-raphtory
-IPython
-ipywidgets
-streamlit 
-seaborn 
-pandas
-matplotlib
-```
-
 This interactive network visual is hosted through Streamlit Cloud and is available here, https://raphtory-pyvis-teenage-glasgow-friendship.streamlit.app/. 
 You can fork this branch and tailor the graph to build features depending on your research interests. Note Streamlit puts apps to 'sleep' if there
 is no activity at least once a week. Health warning this probably will be the case (!!) but do let me know via email if you run into this error and cannot refresh it, 
