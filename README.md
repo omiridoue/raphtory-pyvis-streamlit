@@ -20,9 +20,9 @@ matplotlib
 ```
 
 This interactive network visual is hosted through Streamlit Cloud and is available here, https://raphtory-pyvis-teenage-glasgow-friendship.streamlit.app/. 
-You can fork this branch and tailor the graph to build features depending on your research interests. Note Streamlit put apps to 'sleep' if there
-is no activity at least once a week. Health warning this probably will be the case (!) let me know via email if you run into this error and cannot refresh this, 
-really you will do me a favour if you use it ;).
+You can fork this branch and tailor the graph to build features depending on your research interests. Note Streamlit puts apps to 'sleep' if there
+is no activity at least once a week. Health warning this probably will be the case (!!) but do let me know via email if you run into this error and cannot refresh it, 
+really you will do me a favour if you show the graph some love ;)
 
 ## Temporal Network Edges
 
