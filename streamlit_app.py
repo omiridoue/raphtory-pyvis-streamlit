@@ -279,7 +279,7 @@ for index, d in enumerate(pyvis_graph.nodes):
 
  #pyvis_graph.nodes
 
-st.title('Glasgow Teenage Friendship Network: Raphtory Temporal Graph')
+st.title('Glasgow Teenage Friendship Network Visual')
 
 with st.sidebar:
   st.subheader("Explore Smoking Behaviours through Different Elements of the Visual:")
@@ -288,7 +288,9 @@ with st.sidebar:
   st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
   st.markdown("- You can filter nodes through the dropdown selecting node as a network item, label as a property and listing the anonymised student IDs under values to explore different groups of friends.")
   st.markdown("- Clicking on a node highlights those nodes they have mentioned being friends with, as well as any one who has mentioned them as a friend.")
-
+  
+  st.markdown("- This graph was built using the Raphtory Temporal Graph library GNU General Public License v3.0, link to User Guide: https://www.raphtory.com/.")
+  
   st.markdown("Peers and Networks Workstream, Relationships Programme")
   st.image("MRC_CSO_SPHSU_Glasgow_RGB_0.png")
   
