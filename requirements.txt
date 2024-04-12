@@ -5,4 +5,4 @@ raphtory == 0.7.0
 ipywidgets == 8.1.2 
 seaborn == 0.13.2
 matplotlib == 3.8.3
-streamlit == 0.1.0
+streamlit == 1.9.2
