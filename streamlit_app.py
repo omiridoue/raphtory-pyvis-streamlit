@@ -1,92 +1,67 @@
 import pandas as pd
 import numpy as np
 import pyreadr
+from raphtory import Graph
+from raphtory import export
 import streamlit as st
 import streamlit.components.v1 as components
-import matplotlib.colors as mcolors
 import matplotlib.cm as cm
-from raphtory import Graph, export
-import os
+import matplotlib.colors as mcolors
 
-# Load Data
+# Load data
 glasgow_friendship = pyreadr.read_r("./data/Glasgow-friendship.RData")
 glasgow_substances = pyreadr.read_r("./data/Glasgow-substances.RData")
+glasgow_various = pyreadr.read_r("./data/Glasgow-various.RData")
 
-# Convert Adjacency Matrices into Edges
-def process_adjacency_matrix(adj_matrix, time_step):
-    adj_matrix = adj_matrix.fillna(0).replace({10.0: 0.0, 2.0: 1.0})
-    return (
-        adj_matrix.rename_axis("Source")
-        .reset_index()
-        .melt("Source", value_name="Weight", var_name="Target")
-        .query("Source != Target and Weight != 0")
-        .assign(Time=time_step)
-    )
+# Process friendship data
+def process_adjacency(adj_df):
+    adj_df = adj_df.fillna(0).replace({10.0: 0.0, 2.0: 1.0})
+    return adj_df.rename_axis('Source').reset_index().melt('Source', value_name='Weight', var_name='Target').query('Source != Target and (Weight != 0)').reset_index(drop=True)
 
-df_list = [process_adjacency_matrix(glasgow_friendship[f'friendship.{i}'], i) for i in range(1, 4)]
-df = pd.concat(df_list, ignore_index=True)
-df.rename(columns={"Source": "src_id", "Target": "dst_id", "Time": "time"}, inplace=True)
+adj_t1 = process_adjacency(pd.DataFrame(glasgow_friendship['friendship.1']))
+adj_t2 = process_adjacency(pd.DataFrame(glasgow_friendship['friendship.2']))
+adj_t3 = process_adjacency(pd.DataFrame(glasgow_friendship['friendship.3']))
 
-# Process Node Attributes (Smoking Behavior)
-smoking = pd.DataFrame(glasgow_substances["tobacco"]).fillna(0)
+# Process smoking data
+smoking = pd.DataFrame(glasgow_substances['tobacco']).fillna(0)
+smoking.loc[:, ['t1', 't2', 't3']] = smoking[['t1', 't2', 't3']].astype(int)
 smoking = smoking.rename_axis('id').reset_index()
 node_temp = pd.melt(smoking, var_name='time', value_name='tobacco', id_vars=['id'])
 node_temp['time'] = node_temp['time'].str.extract('(\d+)', expand=False).astype(int)
+node_temp['tobacco'] = node_temp['tobacco'].astype(int)
 
+# Color mapping for smoking
 color_list = ["#5F9EA0", "#318CE7", "#0066b2", "#00308F"]
-node_temp['color'] = node_temp['tobacco'].apply(lambda x: color_list[x])
+node_colors = [color_list[value] if value is not None else '#808080' for value in node_temp.tobacco]
+node_temp['color'] = node_colors
+
+# Combine adjacency dataframes
+dfs = [process_adjacency(globals()[f'adj_t{i}']).assign(Time=f'{i}') for i in range(1, 4)]
+df = pd.concat(dfs, ignore_index=True).rename(columns={'Source': 'src_id', 'Target': 'dst_id', 'Time': 'time'})
+df['time'] = df['time'].astype(int)
+df['Weight'] = df['Weight'].astype(int)
 
 # Create Raphtory Graph
-graph = Graph.load_from_pandas(
-    node_df=node_temp, node_time="time", node_id="id", node_props=["tobacco", "color"],
-    edge_df=df, edge_src="src_id", edge_dst="dst_id", edge_time="time"
-)
+node_cols = ["tobacco", "color"]
+graph = Graph.load_from_pandas(node_df=node_temp, node_time="time", node_id="id", node_props=node_cols, edge_df=df, edge_src="src_id", edge_dst="dst_id", edge_time="time")
 
-# Export to Pyvis for Visualization
-pyvis_graph = export.to_pyvis(
-    graph=graph, height="800px", width="100%", bgcolor="#e5eaf9",
-    font_color="white", directed=True, neighborhood_highlight=True
-)
+# Export to Pyvis
+pyvis_graph = export.to_pyvis(graph=graph, notebook=True, height='900px', width='100%', bgcolor='#e5eaf9', font_color='white', directed=True, neighborhood_highlight=True, select_menu=False, cdn_resources='in_line', filter_menu=True)
 pyvis_graph.barnes_hut(gravity=-1000000, central_gravity=0.3)
 
-# Graph Settings
-pyvis_graph.show_buttons(filter_=["nodes", "edges", "physics"])
-pyvis_graph.set_edge_smooth("straightCross")
-pyvis_graph.repulsion(node_distance=420, central_gravity=0.33, spring_length=110, damping=0.95)
+# Process edge data
+mask_edge = export.to_edge_df(graph)
+mask_edge['periods'] = mask_edge['update_history'].apply(len)
+mask_edge['from'] = [str(i['from']) for i in pyvis_graph.edges]
+mask_edge['to'] = [str(i['to']) for i in pyvis_graph.edges]
 
-# ✅ Save Graph as HTML (Ensure it exists before reading)
-graph_path = "/tmp/pyvis_graph.html"
-pyvis_graph.save_graph(graph_path)
+expanded_df = pd.concat([pd.DataFrame([row.copy() for _ in range(row['periods'])], index=range(row['periods'])) if row['periods'] > 1 else pd.DataFrame([row]) for _, row in mask_edge.iterrows()], ignore_index=True)
+expanded_df['periods'] = expanded_df.groupby(['src', 'dst']).cumcount() + 1
+period_len_vec = expanded_df.groupby(['src', 'dst']).size().reset_index(name='count')
+expanded_df = pd.merge(expanded_df, period_len_vec, on=['src', 'dst'], how='left')
+expanded_df['periods'] = expanded_df.apply(lambda x: x['update_history'][0] if x['count'] == 1 else (x['update_history'][1] if (x['count'] == 2 and x['periods'] == 2) else (x['update_history'][0] if (x['count'] == 2 and x['periods'] == 1) else x['periods'])), axis=1)
+expanded_df['first_inst'] = expanded_df['update_history'].apply(lambda x: x[0])
+count_per_combination = expanded_df.groupby(['src', 'periods']).size().reset_index(name='count')
 
-# Streamlit UI
-st.title("Glasgow Teenage Friendship Network Visual")
-
-with st.sidebar:
-    st.subheader("Explore Smoking Behaviours through Different Elements of the Visual:")
-    st.markdown("""
-    - The edges connecting students in the school year show which way a friendship was initiated. 
-    - The edges are colored dark blue for students reporting frequent smoking and light blue for those mentioning occasionally or never smoking.
-    - A dark purple color for a node indicates whether a student mentioned a parent smoking at home.
-    - Clicking on a node highlights those they have mentioned as friends.
-    """)
-    st.image("MRC_CSO_SPHSU_Glasgow_RGB_0.png")
-
-# ✅ Fix for Mobile & Desktop Responsiveness
-st.markdown("""
-<style>
-    .vis-network {
-        width: 100% !important;
-        height: 80vh !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# ✅ Ensure the Graph File Exists Before Loading
-if os.path.exists(graph_path):
-    with open(graph_path, "r", encoding="utf-8") as HtmlFile:
-        components.html(HtmlFile.read(), height=800, width=1000)  # ✅ Properly loads the visualization
-else:
-    st.error("⚠️ Graph failed to generate. Please check data processing.")
+# Replicate edges
+replicated_entry = [d.copy().update((k, f"{mask_edge.loc[index,'periods']}") for k, v in d.items() if k == 'title') or d for index, d in enumerate(pyvis_graph.edges) fo…
