@@ -375,14 +375,14 @@ except:
     HtmlFile = open(f'{path}/pyvis_graph.html', 'r', encoding='utf-8')
 
 st.markdown(
-    """
+    '''
     <style>
         .vis-network {
             width: 100% !important;
             height: 80vh !important;
         }
     </style>
-    """,
+    ''',
     unsafe_allow_html=True
 )
 
