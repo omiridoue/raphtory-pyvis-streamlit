@@ -64,4 +64,34 @@ expanded_df['first_inst'] = expanded_df['update_history'].apply(lambda x: x[0])
 count_per_combination = expanded_df.groupby(['src', 'periods']).size().reset_index(name='count')
 
 # Replicate edges
-replicated_entry = [d.copy().update((k, f"{mask_edge.loc[index,'periods']}") for k, v in d.items() if k == 'title') or d for index, d in enumerate(pyvis_graph.edges) fo…
+replicated_entry = [d.copy().update((k, f"{mask_edge.loc[index,'periods']}") for k, v in d.items() if k == 'title') or d for index, d in enumerate(pyvis_graph.edges) for _ in range(mask_edge.loc[index, 'periods'] - 1) if mask_edge.loc[index, 'periods'] > 1]
+
+# Rename columns
+mask_edge.rename(columns={'src': 'src_id', 'dst': 'dst_id', 'periods': 'time'}, inplace=True)
+count_per_combination.rename(columns={'src': 'src_id', 'periods': 'time'}, inplace=True)
+expanded_df.rename(columns={'src': 'src_id', 'dst': 'dst_id', 'periods': 'time'}, inplace=True)
+
+# Update edge titles and colors
+for index, d in enumerate(pyvis_graph.edges):
+    d.update((k, f"{mask_edge.loc[index,'time']}") for k, v in d.items() if k == 'title')
+
+df_1 = node_temp[['id', 'time', 'color']].rename(columns={"id": "src_id"})
+colored_edges = pd.merge(expanded_df, df_1, on=['src_id', 'time'], how='left')
+
+# Process family smoking data
+family_smoking = pd.DataFrame(glasgow_various['familysmoking']).rename(columns={"parent.smoking": "parent"})
+family_smoking['parent'] = family_smoking['parent'].fillna(99).replace({1: 0, 2: 1}).astype(int)
+color_parent = ["#757AD8", "#483D8B"]
+node_list_parent = [color_parent[value] if value is not None else '#808080' for value in family_smoking.parent] * 3
+df_1['parent_smoking'] = node_list_parent
+df_1 = pd.merge(df_1, count_per_combination, on=['src_id', 'time'], how='left').fillna(0)
+df_1['count'] = df_1['count'].astype('Int64').apply(lambda x: np.ceil(20 + 25 * np.log(x + 1))).astype('Int64').replace(0, 10)
+
+# Subset and merge
+subset = colored_edges[(colored_edges['count'] > 1) & ~((colored_edges['count'] == 2) & (colored_edges['time'] == 1)) & ~((colored_edges['count'] == 3) & (colored_edges['time'] == 1)) & ~((colored_edges['count'] == 2) & (colored_edges['time'] == 2) & (colored_edges['first_inst'] == 2))].reset_index(drop=True)
+outer_merge = colored_edges.drop(subset.index).reset_index(drop=True)
+
+# Update edge attributes
+for index, d in enumerate(pyvis_graph.edges):
+    d.update((k, f"{outer_merge.loc[index,'time']}") for k, v in d.items() if k == 'title')
+    d.update((k, f"{outer_merge.loc[index,'color']}") for k, v in d.items
