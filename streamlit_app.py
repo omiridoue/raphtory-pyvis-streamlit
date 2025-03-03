@@ -386,7 +386,4 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-components.html(
-    f'<iframe srcdoc="{HtmlFile.read()}" width="100%" height="800px" style="border:none;"></iframe>',
-    height=800
-)
+components.html(HtmlFile.read(),width="100%", height="800px")
