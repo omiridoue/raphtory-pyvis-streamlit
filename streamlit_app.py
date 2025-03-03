@@ -176,4 +176,203 @@ expanded_df['periods']=expanded_df.apply(lambda x: x['update_history'][0] if (x[
 
 expanded_df['first_inst']=expanded_df.apply(lambda x: x['update_history'][0], axis=1)
 
-count_per_combination = expanded_df.groupby(['src', 'periods'])
+count_per_combination = expanded_df.groupby(['src', 'periods']).size().reset_index(name='count')
+
+# Iterate through each row in the original DataFrame
+replicated_entry = []
+for index, d in enumerate(pyvis_graph.edges):
+    # Check if 'periods' is greater than 1
+    #print(index)
+    if mask_edge.loc[index, 'periods'] > 1:
+        # Replicate the ith edge for each unit period above 1
+        for _ in range(mask_edge.loc[index, 'periods'] - 1):
+            d_temp = d.copy()
+            d_temp.update((k, f"{mask_edge.loc[index,'periods']}") for k, v in d.items() if k == 'title')
+            replicated_entry.append(d_temp)
+            #pyvis_graph.add_edge(replicated_entry['from'], replicated_entry['to'])
+
+mask_edge.rename(columns={'src': 'src_id', 'dst': 'dst_id', 'periods': 'time'}, inplace=True)
+count_per_combination.rename(columns={'src': 'src_id', 'periods': 'time'}, inplace=True)
+
+expanded_df.rename(columns={'src': 'src_id', 'dst': 'dst_id', 'periods': 'time'}, inplace=True)
+
+for index, d in enumerate(pyvis_graph.edges):
+    d.update((k, f"{mask_edge.loc[index,'time']}") for k, v in d.items() if k == 'title')
+
+df_1 = node_temp[['id', 'time', 'color']]
+df_1 = df_1.rename(columns={"id": "src_id"})
+colored_edges = pd.merge(expanded_df, df_1, on=['src_id', 'time'], how='left')
+
+family_smoking = pd.DataFrame(glasgow_various['familysmoking'])
+family_smoking['parent.smoking'] = family_smoking['parent.smoking'].fillna(99)
+
+family_smoking = family_smoking.rename(columns={"parent.smoking": "parent"})
+family_smoking['parent'] = family_smoking['parent'].replace(1, 0)
+family_smoking['parent'] = family_smoking['parent'].replace(2,1)
+
+family_smoking['parent'] = family_smoking['parent'].astype('int64')
+
+color_parent = ["#757AD8","#483D8B"] # Manually selected, same as visualse in R code
+
+node_parent = [color_parent[value] if value is not None else '#808080' for value in family_smoking.parent]
+node_list_parent= node_parent * 3
+
+df_1['parent_smoking'] = node_list_parent
+
+df_1 = pd.merge(df_1, count_per_combination, on=['src_id', 'time'], how='left')
+
+df_1 = df_1.fillna(0)
+df_1['count'] = df_1['count'].astype('Int64')
+df_1['count'] = df_1['count'].apply(lambda x: np.ceil(20+25*np.log(x+1))).astype('Int64')
+
+df_1 = df_1.replace(0, 10)
+
+subset = colored_edges[colored_edges['count']>1]
+
+subset =  subset.drop(subset[(subset['count']==2) & (subset['time']==1)].index)
+subset =  subset.drop(subset[(subset['count']==3) & (subset['time']==1)].index)
+subset =  subset.drop(subset[(subset['count']==2) & (subset['time']==2) & (subset['first_inst']==2)].index)
+
+subset_new = subset.reset_index(drop = True, inplace = False)
+
+color_df = pd.DataFrame(colored_edges)
+
+outer_merge = color_df.drop(subset.index)
+outer_merge.reset_index(drop = True, inplace = True)
+
+for index, d in enumerate(pyvis_graph.edges):
+    d.update((k, f"{outer_merge.loc[index,'time']}") for k, v in d.items() if k == 'title')
+    d.update((k, f"{outer_merge.loc[index,'color']}") for k, v in d.items() if k == 'color')
+
+# Iterate through each row in the original DataFrame
+for index, d in enumerate(replicated_entry):
+    pyvis_graph.add_edge(source = replicated_entry[index]['from'],
+                         to = replicated_entry[index]['to'],
+                         title = f"{subset_new['time'][index]}",
+                         arrowStrikethrough = replicated_entry[index]['arrowStrikethrough'],
+                         value = replicated_entry[index]['value'],
+                         color = f"{subset_new['color'][index]}",
+                         arrows = replicated_entry[index]['arrows']
+                         )
+
+for index, d in enumerate(pyvis_graph.edges):
+    d['hidden'] = True  
+    #d['width'] = 2
+  
+    #if d['title'] in ["1"]:
+       #d.update((k, False) for k, v in d.items() if k == 'hidden')
+
+#for index, d in enumerate(pyvis_graph.edges):
+    #d['hidden'] = True  # Adds a new key 'title' with the value of 'label'
+
+    #if d['title'] in ["1"]:
+       #d.update((k, False) for k, v in d.items() if k == 'hidden')
+
+
+for index, d in enumerate(pyvis_graph.nodes):
+    d.update((k, f"diamond") for k, v in d.items() if k == 'shape')
+    d['title'] = d.get('label', '')  # Adds a new key 'title' with the value of 'label'
+
+    # Update nested 'color' under 'font' to 'black'
+    if 'font' in d:
+        d['font'].update((k, '#13345e') for k, v in d['font'].items() if k == 'color')
+
+ #pyvis_graph.nodes
+
+st.title('Glasgow Teenage Friendship Network Visual')
+
+with st.sidebar:
+  st.subheader("Explore Smoking Behaviours through Different Elements of the Visual:")
+  st.markdown("- The edges connecting students in the school year show which way a friendship was initiated. Most times friendships are mutual but sometimes may not be reciprocated. In the original questionnaire students had the option of nominating up to 6 friends.") 
+  st.markdown("- The edges are colored dark blue for students reporting frequent smoking and light blue for those mentioning occasionally or never smoking.")
+  st.markdown("- A dark purple color for a node indicates whether a student mentioned a parent smoking at home.")
+  st.markdown("- You can filter nodes through the dropdown selecting node as a network item, label as a property and listing the anonymised student IDs under values to explore different groups of friends.")
+  st.markdown("- Clicking on a node highlights those nodes they have mentioned being friends with, as well as any one who has mentioned them as a friend.")
+  
+  st.markdown("- This graph was built using the Raphtory Temporal Graph library GNU General Public License v3.0, link to User Guide: https://www.raphtory.com/.")
+  
+  st.markdown("Peers and Networks Workstream, Relationships Programme")
+  st.image("MRC_CSO_SPHSU_Glasgow_RGB_0.png")
+  
+  st.markdown('''
+  <style>
+  [data-testid="stMarkdownContainer"] ul{
+      padding-left:30px;
+      }
+  </style>
+  ''', unsafe_allow_html=True)
+
+slider = st.slider(
+    min_value = 1,
+    max_value = 3,
+    value=1,
+    label='Filter by Questionnaire Wave:'
+)
+st.write("Questionnaire Wave:", slider)
+
+for index, d in enumerate(pyvis_graph.edges):
+    d['hidden'] = True  # Toggles hidden edge on off through the filter
+    d['width'] = d.pop('value', '')  # Adds a new key 'title' with the value of 'label'
+
+    #d.update((k, np.nan) for k, v in d.items() if k == 'value')
+    #d.update((k, 2) for k, v in d.items() if k == 'width')
+
+    
+    if d['title'] in [f'{slider}']:
+       d.update((k, False) for k, v in d.items() if k == 'hidden')
+
+df_parent_col = pd.DataFrame()
+df_parent_col = df_1.loc[df_1['time'] == slider][:]
+df_parent_col.parent_smoking = df_parent_col.parent_smoking.astype('string')
+
+df_parent_col.reset_index(inplace=True, drop=True)
+
+for index, d in enumerate(pyvis_graph.nodes):
+    #d.update((k, np.int(df_parent_col.loc[index,'count'])) for k, v in d.items() if k == 'size')
+    d.update((k, 1) for k, v in d.items() if k == 'size')
+    
+    d.update((k, f"{df_parent_col.loc[index,'parent_smoking']}") for k, v in d.items() if k == 'color')
+
+
+pyvis_graph.repulsion(
+                    node_distance=420,
+                    central_gravity=0.33,
+                    spring_length=110,
+                    spring_strength=0.10,
+                    damping=0.95
+                    )
+
+pyvis_graph.show_buttons(filter_=['nodes', 'edges', 'physics'])
+#'manipulation', 'interaction', 'edges'
+
+options = {
+    "interaction": {
+        "hover": True,
+        "selectConnectedEdges": True
+
+    }
+
+}
+
+# Step 5: Define the options
+pyvis_graph.set_options = options
+
+pyvis_graph.set_edge_smooth("straightCross") # set edge smooth
+
+#pyvis_graph.set_template('/content/')
+#pyvis_graph.generate_html(name='template.html', local=True, notebook=False)
+
+# Save and read graph as HTML file (on Streamlit Sharing)
+try:
+    path = '/tmp'
+    pyvis_graph.save_graph(f'{path}/pyvis_graph.html')
+    HtmlFile = open(f'{path}/pyvis_graph.html', 'r', encoding='utf-8')
+
+# Save and read graph as HTML file (locally)
+except:
+    path = '/html_files'
+    pyvis_graph.save_graph(f'{path}/pyvis_graph.html')
+    HtmlFile = open(f'{path}/pyvis_graph.html', 'r', encoding='utf-8')
+
+# Load HTML file in HTML component for display on Streamlit page
+components.html(HtmlFile.read(), use_column_width=True, height=1590)
