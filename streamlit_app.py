@@ -374,5 +374,19 @@ except:
     pyvis_graph.save_graph(f'{path}/pyvis_graph.html')
     HtmlFile = open(f'{path}/pyvis_graph.html', 'r', encoding='utf-8')
 
-# Load HTML file in HTML component for display on Streamlit page
-components.html(f'<iframe srcdoc="{HtmlFile.read()}" width="100%" height="800px" style="border:none;"></iframe>', height=800)
+st.markdown(
+    """
+    <style>
+        .vis-network {
+            width: 100% !important;
+            height: 80vh !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+components.html(
+    f'<iframe srcdoc="{HtmlFile.read()}" width="100%" height="800px" style="border:none;"></iframe>',
+    height=800
+)
